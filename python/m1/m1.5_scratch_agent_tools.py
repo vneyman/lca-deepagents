@@ -7,7 +7,7 @@ from deepagents import create_deep_agent
 from langchain_community.utilities import SQLDatabase
 from langchain_core.tools import tool
 
-from models import model
+from models import model, strong_model
 
 DB_PATH = Path(__file__).parent / "chinook.db"
 db = SQLDatabase.from_uri(f"sqlite:///{DB_PATH}")
@@ -32,8 +32,8 @@ def read_sql(query: str) -> str:
 
 
 agent = create_deep_agent(
-    model=model,
-    name="SQL Agent",
+    model=strong_model,
+    name="SQL_Agent",
     tools=[read_sql],
     system_prompt=SYSTEM_PROMPT,
 )

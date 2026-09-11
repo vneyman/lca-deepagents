@@ -46,6 +46,8 @@ from langchain.chat_models import init_chat_model
 # model = init_chat_model("anthropic:claude-sonnet-4-6")
 model = init_chat_model("openai:gpt-5.4-mini")
 # model = init_chat_model("openai:gpt-4.1")
+# strong_model = init_chat_model("openai:gpt-5.6-luna", use_responses_api=True, reasoning_effort="high")  # use the legacy API for now, until the Responses API is fully supported in LangChain
+# strong_model = init_chat_model("openai:gpt-5.6-terra", use_responses_api=True)  # use the legacy API for now, until the Responses API is fully supported in LangChain
 strong_model = init_chat_model("openai:gpt-5.4")
 
 # ═══ Open-Source / Alternative Hosted Models ══════════════════════════════════
