@@ -183,7 +183,7 @@ async def main() -> None:
         print("Running agent...\n")
         result = await agent.ainvoke({
             "messages": [{"role": "user", "content": (
-                "What is my GitHub username and what repositories do I have?"
+                "What can I do with the GitHub MCP? 3 use cases focuing on my repositories, each in 1-2 sentences, with examples of the tools to use."
             )}]
         })
         print("\n" + result["messages"][-1].content)

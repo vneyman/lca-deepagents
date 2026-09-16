@@ -46,12 +46,16 @@ result = agent.invoke(
 
 while result.interrupts:
     pending = result.interrupts[0].value
+    print(f"\nPending action requests: {pending}")
+
     decisions = []
     for req in pending["action_requests"]:
         print(f"\nApproval required for {req['name']}:")
         print(req["args"])
 
         choice = input("\nApprove, edit, or reject? (approve/edit/reject): ").strip().lower()
+        print(f"User choice: {choice}")
+        
         if choice in ("approve", "yes", "y"):
             decisions.append({"type": "approve"})
         elif choice in ("edit", "e"):
