@@ -1,31 +1,131 @@
-// ── Back to Top button ───────────────────────────────────────────────────────
+// ── Page components ──────────────────────────────────────────────────────────
+// Global language state: one language choice drives everything on the page —
+// the page-level switch (data-page-lang-switch) AND every per-block code-tabs
+// (data-code-tabs) toggle move together. Persisted in localStorage so the
+// choice also carries across lessons.
 document.addEventListener('DOMContentLoaded', function () {
-  var panel = document.querySelector('.lt-panel');
-  if (!panel) return;
+  var codeTabWraps = document.querySelectorAll('[data-code-tabs]');
+  var pageSwitchButtons = document.querySelectorAll('[data-page-lang-switch] [data-page-lang]');
 
-  var hasLab = false, hasQuiz = false;
-  document.querySelectorAll('.lt-tab').forEach(function (t) {
-    var p = t.getAttribute('data-p') || '';
-    if (p.startsWith('lab')) hasLab = true;
-    if (p === 'quiz') hasQuiz = true;
+  function setGlobalLang(lang) {
+    pageSwitchButtons.forEach(function (btn) {
+      var active = btn.getAttribute('data-page-lang') === lang;
+      btn.classList.toggle('active', active);
+      btn.setAttribute('aria-selected', active ? 'true' : 'false');
+    });
+
+    document.querySelectorAll('[data-lang]').forEach(function (el) {
+      el.hidden = el.getAttribute('data-lang') !== lang;
+    });
+
+    codeTabWraps.forEach(function (wrap) {
+      var tabs = wrap.querySelectorAll('[data-code-tab]');
+      var hasLang = Array.prototype.some.call(tabs, function (tab) {
+        return tab.getAttribute('data-code-tab') === lang;
+      });
+      if (!hasLang) return; // this block doesn't offer that language — leave it as-is
+
+      var panels = wrap.querySelectorAll('[data-code-panel]');
+      tabs.forEach(function (tab) {
+        var active = tab.getAttribute('data-code-tab') === lang;
+        tab.classList.toggle('active', active);
+        tab.setAttribute('aria-selected', active ? 'true' : 'false');
+      });
+      panels.forEach(function (panel) {
+        panel.classList.toggle('active', panel.getAttribute('data-code-panel') === lang);
+      });
+    });
+
+    try { localStorage.setItem('lca-page-lang', lang); } catch (e) {}
+  }
+
+  codeTabWraps.forEach(function (wrap) {
+    var tabs = wrap.querySelectorAll('[data-code-tab]');
+    tabs.forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        setGlobalLang(tab.getAttribute('data-code-tab'));
+      });
+    });
   });
 
-  var label = '↑  Back to top';
-  if (hasLab && hasQuiz) label += ': Lab & Quiz';
-  else if (hasLab)       label += ': Lab';
-  else if (hasQuiz)      label += ': Quiz';
-
-  var btn = document.createElement('button');
-  btn.className = 'back-to-top-btn';
-  btn.textContent = label;
-  btn.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: 'instant' }); });
-
-  var refH2 = null;
-  panel.querySelectorAll('h2').forEach(function (h) {
-    if (h.textContent.trim() === 'References') refH2 = h;
+  pageSwitchButtons.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      setGlobalLang(btn.getAttribute('data-page-lang'));
+    });
   });
-  if (refH2) panel.insertBefore(btn, refH2);
-  else panel.appendChild(btn);
+
+  if (codeTabWraps.length || pageSwitchButtons.length) {
+    var stored = null;
+    try { stored = localStorage.getItem('lca-page-lang'); } catch (e) {}
+    setGlobalLang(stored || 'python');
+  }
+
+  // Fixed page-lang-switch: reserve its height at the start of its container
+  // (it's taken out of flow by position:fixed), then auto-hide on scroll-down,
+  // reappear on scroll-up. Putting the spacer first keeps any content authored
+  // before the switch (such as the translation link) from sitting behind it.
+  var switchEl = document.querySelector('[data-page-lang-switch]');
+  if (switchEl) {
+    var spacer = document.createElement('div');
+    switchEl.parentNode.insertBefore(spacer, switchEl.parentNode.firstChild);
+    function syncSpacerHeight() { spacer.style.height = switchEl.offsetHeight + 'px'; }
+    syncSpacerHeight();
+    window.addEventListener('resize', syncSpacerHeight);
+
+    var lastScrollY = window.scrollY;
+    window.addEventListener('scroll', function () {
+      var currentScrollY = window.scrollY;
+      if (currentScrollY < lastScrollY || currentScrollY < 10) {
+        switchEl.classList.remove('pls-hidden');
+      } else if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        switchEl.classList.add('pls-hidden');
+      }
+      lastScrollY = currentScrollY;
+    }, { passive: true });
+  }
+
+  var panels = document.querySelectorAll('.lt-panel');
+  if (!panels.length) return;
+
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('.lt-tab')).map(function (t) {
+    return { key: t.getAttribute('data-p') || '', label: t.textContent.trim() };
+  });
+  if (!tabs.length) return;
+
+  panels.forEach(function (panel) {
+    var key = panel.id.replace(/^p-/, '');
+    var idx = tabs.findIndex(function (t) { return t.key === key; });
+    // Only point forward to tabs later in the flow (Lesson -> Lab 1 -> Lab 2 -> Quiz -> Homework),
+    // never back to a tab already completed.
+    var parts = (idx === -1 ? tabs.slice(1) : tabs.slice(idx + 1)).map(function (t) { return t.label; });
+
+    var label = '↑  Back to top';
+    if (parts.length) label += ': ' + parts.join(', ');
+
+    function makeBackToTopBtn() {
+      var b = document.createElement('button');
+      b.className = 'back-to-top-btn';
+      b.textContent = label;
+      b.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: 'instant' }); });
+      return b;
+    }
+
+    var refHeadings = [];
+    panel.querySelectorAll('h2').forEach(function (h) {
+      if (h.textContent.trim() === 'References') refHeadings.push(h);
+    });
+
+    if (refHeadings.length) {
+      // Insert relative to each heading's own parent (not always `panel`) since
+      // per-language lessons nest each language's References one level deeper,
+      // inside a [data-lang] wrapper — insertBefore requires a direct child.
+      refHeadings.forEach(function (h) {
+        h.parentNode.insertBefore(makeBackToTopBtn(), h);
+      });
+    } else {
+      panel.appendChild(makeBackToTopBtn());
+    }
+  });
 });
 
 // ── SVG fragment helpers ──────────────────────────────────────────────────────

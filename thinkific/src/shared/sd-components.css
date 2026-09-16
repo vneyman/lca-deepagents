@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=IBM+Plex+Mono:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=IBM+Plex+Mono:wght@300;400;500;700&display=swap');
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -10,6 +10,11 @@
 
 p { margin-bottom: 18px; }
 
+/* Custom callout divs (`<div style="background:...">`) wrap a single <p>;
+   its own margin-bottom stacks with the div's padding and reads as a
+   trailing blank line inside the box. */
+div[style*="background:"] > p:last-child { margin-bottom: 0; }
+
 .callout {
   border-left: 3px solid #006DDD;
   background: #E5F4FF;
@@ -18,6 +23,15 @@ p { margin-bottom: 18px; }
   margin: 28px 0;
   font-size: 15.5px;
   color: #030710;
+}
+.callout p:first-child { margin-top: 0; }
+.callout p:last-child { margin-bottom: 0; }
+
+mark.hl {
+  background: #FFF3B0;
+  color: inherit;
+  padding: 0 2px;
+  border-radius: 2px;
 }
 
 hr {
@@ -48,6 +62,7 @@ hr {
 .step-hidden  { opacity: 0; pointer-events: none; }
 .step-past    { opacity: 1; }
 .step-current { opacity: 1; }
+.step-dim     { opacity: 0.12; pointer-events: none; }
 
 /* Sequence diagram element colors */
 .al  { stroke: #40668D; fill: none; }
@@ -100,6 +115,7 @@ hr {
   line-height: 1.6;
   color: #030710;
   min-height: 3em;
+  white-space: pre-line;
 }
 
 .sd-caption strong {
@@ -210,6 +226,16 @@ details[open] > summary {
   border-radius: 6px 6px 0 0;
 }
 details > *:not(summary) { padding: 0 16px; }
+details > summary + * { padding-top: 8px; }
+
+/* ── Nested note: indented, more compact dropdown under a list item ── */
+details.nested-note {
+  width: calc(100% - 32px);
+  margin: 12px 0 20px 32px;
+}
+details.nested-note > summary {
+  padding: 7px 14px;
+}
 
 /* ── MCQ: hide ✅ emoji in answer header (no text presentation in Unicode) ── */
 .mcq-answer-header { font-size: 0 !important; }
@@ -225,6 +251,111 @@ details[open].video-walkthrough > summary { border-bottom-color: #F4ABCD; }
 
 /* ── Tip box: remove bottom margin on last paragraph ── */
 .tip p:last-child { margin-bottom: 0; }
+
+/* ── Case study callout: green box with LangChain logo, for real-world customer examples ── */
+.case-study {
+  margin: 1.5rem 0;
+  padding: 1.25rem 1.5rem;
+  border-radius: 12px;
+  border: 1px solid #86EFAC;
+  background-color: #ECFDF5;
+  color: #065F46;
+  display: flex;
+  gap: 1.25rem;
+  align-items: flex-start;
+}
+.case-study img {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  margin-top: 2px;
+  object-fit: contain;
+}
+.case-study p { margin: 0 0 0.5rem; }
+.case-study p:last-child { margin-bottom: 0; }
+.case-study strong { color: #065F46; }
+.case-study code { background-color: #D1FAE5; color: #065F46; }
+.case-study a {
+  color: #047857;
+  font-weight: 600;
+  text-decoration: underline;
+}
+.case-study a:hover { color: #065F46; }
+
+/* ── Demo tip: blue box with a hand-pointer icon, for "try it yourself" prompts next to a live embedded demo ── */
+.demo-tip {
+  margin: 1.5rem 0;
+  padding: 1.25rem 1.5rem;
+  border-radius: 12px;
+  border: 1px solid #9adbb0;
+  background-color: #e6f7ec;
+  color: #1e5e3a;
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+}
+.demo-tip svg {
+  width: 26px;
+  height: 26px;
+  flex-shrink: 0;
+  margin-top: 0px;
+  color: #1e5e3a;
+  transform: scaleY(1.15);
+}
+.demo-tip > p { margin: 0; }
+.demo-tip > div p { margin: 0 0 0.5rem; }
+.demo-tip > div p:last-child { margin-bottom: 0; }
+.demo-tip ul, .demo-tip ol { margin: 0.5rem 0; padding-left: 2.25rem; }
+.demo-tip li:last-child { margin-bottom: 0; }
+.demo-tip strong { color: #1e5e3a; }
+.demo-tip code { background-color: #cdf0da; color: #1e5e3a; }
+
+/* ── Code tabs (block-switch: language choice scoped to one code block) ── */
+.code-tabs {
+  position: relative;
+  margin: 1rem 0 1.5rem;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #030710;
+}
+
+/* Same top offset and height as .copy-button-inline so both sit inline,
+   left and right, in the reserved top band of the code block (see pre { padding-top }). */
+.code-tab-list {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.9rem;
+  height: 28px;
+  z-index: 2;
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+
+.code-tab {
+  font: 500 12px 'IBM Plex Mono', monospace;
+  padding: 0 0 4px;
+  border: none;
+  border-bottom: 2px solid transparent;
+  background: transparent;
+  color: #B8D4FF;
+  cursor: pointer;
+  letter-spacing: 0.03em;
+}
+
+.code-tab:hover { color: #F2FAFF; }
+
+.code-tab.active {
+  color: #F2FAFF;
+  border-bottom-color: #7FC8FF;
+}
+
+.code-tab-panel { display: none; }
+.code-tab-panel.active { display: block; }
+.code-tab-panel pre {
+  margin: 0;
+  border-radius: 8px;
+}
 
 /* ── Code-block copy button: always-visible icon, never overlapping the code ── */
 /* Extra top padding reserves a band for the button so the first line stays clear. */
@@ -248,6 +379,56 @@ pre .copy-button-inline:hover {
   filter: none;
   opacity: 1;
   background-color: rgba(127, 200, 255, 0.30);
+}
+
+/* ── Page-level language switch (page-switch: scope is the whole lesson) ──
+   Fixed full-width bar pinned to the top of the viewport, auto-hides on
+   scroll-down and reappears on scroll-up — matches the reliable-agents
+   LanguageSelector look exactly (colors, shape, layout included). Also acts
+   as the single global toggle — see sd-components.js — so it stays in sync
+   with any .code-tabs (block-switch) blocks on the same page. A JS-measured
+   spacer (inserted right after this element) reserves its height so content
+   doesn't jump when it goes fixed. */
+.page-lang-switch {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 1rem 0;
+  background: #ffffff;
+  border-bottom: 2px solid #e5e7eb;
+  border-radius: 0;
+  box-shadow: none;
+  transition: transform 0.3s ease-in-out;
+}
+
+.page-lang-switch.pls-hidden {
+  transform: translateY(-100%);
+}
+
+.page-lang-btn {
+  padding: 0.5rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  background: #fafafa;
+  color: #6b7280;
+  font: 600 0.9375rem/1.2 -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  letter-spacing: normal;
+  text-transform: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.page-lang-btn:hover { color: #1f2937; }
+
+.page-lang-btn.active {
+  background: #d1d5db;
+  color: #1f2937;
 }
 
 /* ── Back to Top button ── */
