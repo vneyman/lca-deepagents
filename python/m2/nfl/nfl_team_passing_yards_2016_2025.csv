@@ -1,0 +1,321 @@
+season,team_abbreviation,team_name,passing_yards
+2016,ARI,Arizona Cardinals,4425
+2016,ATL,Atlanta Falcons,4960
+2016,BAL,Baltimore Ravens,4343
+2016,BUF,Buffalo Bills,3250
+2016,CAR,Carolina Panthers,3962
+2016,CHI,Chicago Bears,4139
+2016,CIN,Cincinnati Bengals,4206
+2016,CLE,Cleveland Browns,3693
+2016,DAL,Dallas Cowboys,3799
+2016,DEN,Denver Broncos,3914
+2016,DET,Detroit Lions,4327
+2016,GB,Green Bay Packers,4445
+2016,HOU,Houston Texans,3418
+2016,IND,Indianapolis Colts,4491
+2016,JAX,Jacksonville Jaguars,3925
+2016,KC,Kansas City Chiefs,3914
+2016,LA,Los Angeles Rams,3313
+2016,LAC,Los Angeles Chargers,4386
+2016,LV,Las Vegas Raiders,4137
+2016,MIA,Miami Dolphins,3716
+2016,MIN,Minnesota Vikings,4119
+2016,NE,New England Patriots,4456
+2016,NO,New Orleans Saints,5258
+2016,NYG,New York Giants,4027
+2016,NYJ,New York Jets,3645
+2016,PHI,Philadelphia Eagles,3798
+2016,PIT,Pittsburgh Steelers,4377
+2016,SEA,Seattle Seahawks,4422
+2016,SF,San Francisco 49ers,3166
+2016,TB,Tampa Bay Buccaneers,4165
+2016,TEN,Tennessee Titans,3720
+2016,WAS,Washington Commanders,4948
+2017,ARI,Arizona Cardinals,3979
+2017,ATL,Atlanta Falcons,4146
+2017,BAL,Baltimore Ravens,3235
+2017,BUF,Buffalo Bills,3065
+2017,CAR,Carolina Panthers,3319
+2017,CHI,Chicago Bears,3085
+2017,CIN,Cincinnati Bengals,3386
+2017,CLE,Cleveland Browns,3537
+2017,DAL,Dallas Cowboys,3326
+2017,DEN,Denver Broncos,3668
+2017,DET,Detroit Lions,4470
+2017,GB,Green Bay Packers,3532
+2017,HOU,Houston Texans,3644
+2017,IND,Indianapolis Colts,3226
+2017,JAX,Jacksonville Jaguars,3716
+2017,KC,Kansas City Chiefs,4326
+2017,LA,Los Angeles Rams,4023
+2017,LAC,Los Angeles Chargers,4551
+2017,LV,Las Vegas Raiders,3761
+2017,MIA,Miami Dolphins,3792
+2017,MIN,Minnesota Vikings,3929
+2017,NE,New England Patriots,4619
+2017,NO,New Orleans Saints,4334
+2017,NYG,New York Giants,3680
+2017,NYJ,New York Jets,3501
+2017,PHI,Philadelphia Eagles,3967
+2017,PIT,Pittsburgh Steelers,4542
+2017,SEA,Seattle Seahawks,3979
+2017,SF,San Francisco 49ers,4235
+2017,TB,Tampa Bay Buccaneers,4607
+2017,TEN,Tennessee Titans,3394
+2017,WAS,Washington Commanders,4093
+2018,ARI,Arizona Cardinals,2884
+2018,ATL,Atlanta Falcons,4949
+2018,BAL,Baltimore Ravens,3708
+2018,BUF,Buffalo Bills,3052
+2018,CAR,Carolina Panthers,4071
+2018,CHI,Chicago Bears,3747
+2018,CIN,Cincinnati Bengals,3569
+2018,CLE,Cleveland Browns,4261
+2018,DAL,Dallas Cowboys,3885
+2018,DEN,Denver Broncos,3930
+2018,DET,Detroit Lions,3844
+2018,GB,Green Bay Packers,4629
+2018,HOU,Houston Texans,4165
+2018,IND,Indianapolis Colts,4595
+2018,JAX,Jacksonville Jaguars,3431
+2018,KC,Kansas City Chiefs,5126
+2018,LA,Los Angeles Rams,4730
+2018,LAC,Los Angeles Chargers,4316
+2018,LV,Las Vegas Raiders,4057
+2018,MIA,Miami Dolphins,3309
+2018,MIN,Minnesota Vikings,4298
+2018,NE,New England Patriots,4405
+2018,NO,New Orleans Saints,4174
+2018,NYG,New York Giants,4405
+2018,NYJ,New York Jets,3404
+2018,PHI,Philadelphia Eagles,4524
+2018,PIT,Pittsburgh Steelers,5174
+2018,SEA,Seattle Seahawks,3448
+2018,SF,San Francisco 49ers,4247
+2018,TB,Tampa Bay Buccaneers,5358
+2018,TEN,Tennessee Titans,3255
+2018,WAS,Washington Commanders,3287
+2019,ARI,Arizona Cardinals,3797
+2019,ATL,Atlanta Falcons,5049
+2019,BAL,Baltimore Ravens,3350
+2019,BUF,Buffalo Bills,3476
+2019,CAR,Carolina Panthers,4134
+2019,CHI,Chicago Bears,3573
+2019,CIN,Cincinnati Bengals,3994
+2019,CLE,Cleveland Browns,3847
+2019,DAL,Dallas Cowboys,4902
+2019,DEN,Denver Broncos,3401
+2019,DET,Detroit Lions,4187
+2019,GB,Green Bay Packers,4017
+2019,HOU,Houston Texans,4083
+2019,IND,Indianapolis Colts,3314
+2019,JAX,Jacksonville Jaguars,4023
+2019,KC,Kansas City Chiefs,4690
+2019,LA,Los Angeles Rams,4669
+2019,LAC,Los Angeles Chargers,4648
+2019,LV,Las Vegas Raiders,4110
+2019,MIA,Miami Dolphins,4117
+2019,MIN,Minnesota Vikings,3729
+2019,NE,New England Patriots,4153
+2019,NO,New Orleans Saints,4431
+2019,NYG,New York Giants,4070
+2019,NYJ,New York Jets,3443
+2019,PHI,Philadelphia Eagles,4063
+2019,PIT,Pittsburgh Steelers,3214
+2019,SEA,Seattle Seahawks,4110
+2019,SF,San Francisco 49ers,4029
+2019,TB,Tampa Bay Buccaneers,5127
+2019,TEN,Tennessee Titans,3956
+2019,WAS,Washington Commanders,3205
+2020,ARI,Arizona Cardinals,4102
+2020,ATL,Atlanta Falcons,4620
+2020,BAL,Baltimore Ravens,2919
+2020,BUF,Buffalo Bills,4786
+2020,CAR,Carolina Panthers,4129
+2020,CHI,Chicago Bears,3925
+2020,CIN,Cincinnati Bengals,3793
+2020,CLE,Cleveland Browns,3701
+2020,DAL,Dallas Cowboys,4511
+2020,DEN,Denver Broncos,3673
+2020,DET,Detroit Lions,4397
+2020,GB,Green Bay Packers,4299
+2020,HOU,Houston Texans,4843
+2020,IND,Indianapolis Colts,4186
+2020,JAX,Jacksonville Jaguars,3955
+2020,KC,Kansas City Chiefs,5005
+2020,LA,Los Angeles Rams,4183
+2020,LAC,Los Angeles Chargers,4548
+2020,LV,Las Vegas Raiders,4383
+2020,MIA,Miami Dolphins,3937
+2020,MIN,Minnesota Vikings,4265
+2020,NE,New England Patriots,3124
+2020,NO,New Orleans Saints,3945
+2020,NYG,New York Giants,3336
+2020,NYJ,New York Jets,3115
+2020,PHI,Philadelphia Eagles,3728
+2020,PIT,Pittsburgh Steelers,4129
+2020,SEA,Seattle Seahawks,4245
+2020,SF,San Francisco 49ers,4320
+2020,TB,Tampa Bay Buccaneers,4776
+2020,TEN,Tennessee Titans,3826
+2020,WAS,Washington Commanders,3796
+2021,ARI,Arizona Cardinals,4619
+2021,ATL,Atlanta Falcons,3987
+2021,BAL,Baltimore Ravens,4267
+2021,BUF,Buffalo Bills,4450
+2021,CAR,Carolina Panthers,3573
+2021,CHI,Chicago Bears,3635
+2021,CIN,Cincinnati Bengals,4806
+2021,CLE,Cleveland Browns,3619
+2021,DAL,Dallas Cowboys,4963
+2021,DEN,Denver Broncos,3856
+2021,DET,Detroit Lions,3884
+2021,GB,Green Bay Packers,4526
+2021,HOU,Houston Texans,3630
+2021,IND,Indianapolis Colts,3588
+2021,JAX,Jacksonville Jaguars,3674
+2021,KC,Kansas City Chiefs,4937
+2021,LA,Los Angeles Rams,4893
+2021,LAC,Los Angeles Chargers,5014
+2021,LV,Las Vegas Raiders,4808
+2021,MIA,Miami Dolphins,3936
+2021,MIN,Minnesota Vikings,4450
+2021,NE,New England Patriots,4098
+2021,NO,New Orleans Saints,3437
+2021,NYG,New York Giants,3463
+2021,NYJ,New York Jets,3959
+2021,PHI,Philadelphia Eagles,3585
+2021,PIT,Pittsburgh Steelers,4017
+2021,SEA,Seattle Seahawks,3815
+2021,SF,San Francisco 49ers,4437
+2021,TB,Tampa Bay Buccaneers,5383
+2021,TEN,Tennessee Titans,3745
+2021,WAS,Washington Commanders,3746
+2022,ARI,Arizona Cardinals,3966
+2022,ATL,Atlanta Falcons,2927
+2022,BAL,Baltimore Ravens,3202
+2022,BUF,Buffalo Bills,4291
+2022,CAR,Carolina Panthers,3246
+2022,CHI,Chicago Bears,2598
+2022,CIN,Cincinnati Bengals,4520
+2022,CLE,Cleveland Browns,3710
+2022,DAL,Dallas Cowboys,3911
+2022,DEN,Denver Broncos,4007
+2022,DET,Detroit Lions,4444
+2022,GB,Green Bay Packers,3890
+2022,HOU,Houston Texans,3642
+2022,IND,Indianapolis Colts,3855
+2022,JAX,Jacksonville Jaguars,4148
+2022,KC,Kansas City Chiefs,5250
+2022,LA,Los Angeles Rams,3506
+2022,LAC,Los Angeles Chargers,4791
+2022,LV,Las Vegas Raiders,4182
+2022,MIA,Miami Dolphins,4765
+2022,MIN,Minnesota Vikings,4818
+2022,NE,New England Patriots,3815
+2022,NO,New Orleans Saints,3969
+2022,NYG,New York Giants,3431
+2022,NYJ,New York Jets,4040
+2022,PHI,Philadelphia Eagles,4364
+2022,PIT,Pittsburgh Steelers,3661
+2022,SEA,Seattle Seahawks,4282
+2022,SF,San Francisco 49ers,4049
+2022,TB,Tampa Bay Buccaneers,4746
+2022,TEN,Tennessee Titans,3227
+2022,WAS,Washington Commanders,3783
+2023,ARI,Arizona Cardinals,3430
+2023,ATL,Atlanta Falcons,3775
+2023,BAL,Baltimore Ravens,3881
+2023,BUF,Buffalo Bills,4306
+2023,CAR,Carolina Panthers,3245
+2023,CHI,Chicago Bears,3421
+2023,CIN,Cincinnati Bengals,4257
+2023,CLE,Cleveland Browns,4011
+2023,DAL,Dallas Cowboys,4660
+2023,DEN,Denver Broncos,3566
+2023,DET,Detroit Lions,4606
+2023,GB,Green Bay Packers,4210
+2023,HOU,Houston Texans,4578
+2023,IND,Indianapolis Colts,3882
+2023,JAX,Jacksonville Jaguars,4377
+2023,KC,Kansas City Chiefs,4383
+2023,LA,Los Angeles Rams,4300
+2023,LAC,Los Angeles Chargers,4312
+2023,LV,Las Vegas Raiders,3666
+2023,MIA,Miami Dolphins,4698
+2023,MIN,Minnesota Vikings,4700
+2023,NE,New England Patriots,3392
+2023,NO,New Orleans Saints,4225
+2023,NYG,New York Giants,3351
+2023,NYJ,New York Jets,3373
+2023,PHI,Philadelphia Eagles,4067
+2023,PIT,Pittsburgh Steelers,3421
+2023,SEA,Seattle Seahawks,4167
+2023,SF,San Francisco 49ers,4577
+2023,TB,Tampa Bay Buccaneers,4044
+2023,TEN,Tennessee Titans,3512
+2023,WAS,Washington Commanders,4174
+2024,ARI,Arizona Cardinals,3859
+2024,ATL,Atlanta Falcons,4283
+2024,BAL,Baltimore Ravens,4189
+2024,BUF,Buffalo Bills,3938
+2024,CAR,Carolina Panthers,3411
+2024,CHI,Chicago Bears,3552
+2024,CIN,Cincinnati Bengals,4918
+2024,CLE,Cleveland Browns,3879
+2024,DAL,Dallas Cowboys,4092
+2024,DEN,Denver Broncos,3808
+2024,DET,Detroit Lions,4718
+2024,GB,Green Bay Packers,3939
+2024,HOU,Houston Texans,3952
+2024,IND,Indianapolis Colts,3599
+2024,JAX,Jacksonville Jaguars,3717
+2024,KC,Kansas City Chiefs,4046
+2024,LA,Los Angeles Rams,4096
+2024,LAC,Los Angeles Chargers,3901
+2024,LV,Las Vegas Raiders,4117
+2024,MIA,Miami Dolphins,4036
+2024,MIN,Minnesota Vikings,4379
+2024,NE,New England Patriots,3343
+2024,NO,New Orleans Saints,3730
+2024,NYG,New York Giants,3521
+2024,NYJ,New York Jets,4016
+2024,PHI,Philadelphia Eagles,3517
+2024,PIT,Pittsburgh Steelers,3607
+2024,SEA,Seattle Seahawks,4379
+2024,SF,San Francisco 49ers,4424
+2024,TB,Tampa Bay Buccaneers,4505
+2024,TEN,Tennessee Titans,3621
+2024,WAS,Washington Commanders,3932
+2025,ARI,Arizona Cardinals,4354
+2025,ATL,Atlanta Falcons,3703
+2025,BAL,Baltimore Ravens,3278
+2025,BUF,Buffalo Bills,3981
+2025,CAR,Carolina Panthers,3304
+2025,CHI,Chicago Bears,3991
+2025,CIN,Cincinnati Bengals,4244
+2025,CLE,Cleveland Browns,3152
+2025,DAL,Dallas Cowboys,4735
+2025,DEN,Denver Broncos,3931
+2025,DET,Detroit Lions,4567
+2025,GB,Green Bay Packers,3845
+2025,HOU,Houston Texans,3956
+2025,IND,Indianapolis Colts,4085
+2025,JAX,Jacksonville Jaguars,4026
+2025,KC,Kansas City Chiefs,3947
+2025,LA,Los Angeles Rams,4707
+2025,LAC,Los Angeles Chargers,3953
+2025,LV,Las Vegas Raiders,3315
+2025,MIA,Miami Dolphins,3322
+2025,MIN,Minnesota Vikings,3208
+2025,NE,New England Patriots,4459
+2025,NO,New Orleans Saints,4027
+2025,NYG,New York Giants,3703
+2025,NYJ,New York Jets,2784
+2025,PHI,Philadelphia Eagles,3498
+2025,PIT,Pittsburgh Steelers,3632
+2025,SEA,Seattle Seahawks,4063
+2025,SF,San Francisco 49ers,4318
+2025,TB,Tampa Bay Buccaneers,3755
+2025,TEN,Tennessee Titans,3241
+2025,WAS,Washington Commanders,3329

@@ -61,7 +61,12 @@ from models import model
 #   )
 # ════════════════════════════════════════════════════════════════════════
 
-SYSTEM_PROMPT = None  # TODO 1: replace with your own system prompt
+# TODO 1: replace with your own system prompt
+SYSTEM_PROMPT = """
+  You are are data analyst assistant. When asked to run code, write the script to a file first, then execute it. 
+  Install packages with `pip install --break-system-packages <package>` (e.g. `pip install --break-system-packages matplotlib`). 
+  When asked for a chart, use matplotlib and save it as a .png file.
+"""  
 
 
 # ════════════════════════════════════════════════════════════════════════
@@ -88,9 +93,20 @@ SYSTEM_PROMPT = None  # TODO 1: replace with your own system prompt
 #   )
 # ════════════════════════════════════════════════════════════════════════
 
-TASK_ONE = None  # TODO 2: replace with your first task message
-TASK_TWO = None  # TODO 2: replace with a second task that charts TASK_ONE's file
-
+# TODO 2: replace with your first task message
+TASK_ONE = """
+read /data/nfl_team_passing_yards_2016_2025.csv, it has columns: season	team_abbreviation	team_name	passing_yards.
+Generate total passing yards for the Chicago Bears during last 10 years. 
+Also, generate:
+- average passing yards per year and per team for NFL, excluding Bears. 
+- bears vs league average passing yards per year for last 10 years.
+Save the data to a file named '/data/bears_vs_league_passing_yards_2016_2025.csv'.
+"""  
+# TODO 2: replace with a second task that charts TASK_ONE's file
+TASK_TWO =  """
+Read the data from '/data/bears_vs_league_passing_yards_2016_2025.csv' and create a bar chart showing the passing yards for the Chicago Bears and a line for the NFL average. All in one chart. 
+Save the chart to '/charts/bears_vs_league_passing_yards_2016_2025.png'.
+"""
 
 # ════════════════════════════════════════════════════════════════════════
 # TODO 3: Point CHART_PATH at wherever TASK_TWO saves the chart.
@@ -100,7 +116,7 @@ TASK_TWO = None  # TODO 2: replace with a second task that charts TASK_ONE's fil
 # save it locally, the same way Lab 2 reads /genre_revenue.png back.
 # ════════════════════════════════════════════════════════════════════════
 
-CHART_PATH = None  # TODO 3: replace with the sandbox path used in TASK_TWO
+CHART_PATH = "/charts/bears_vs_league_passing_yards_2016_2025.png"  # TODO 3: replace with the sandbox path used in TASK_TWO
 
 if SYSTEM_PROMPT is None:
     raise NotImplementedError("TODO 1: see the comment block above")
@@ -114,6 +130,9 @@ ls_sandbox = client.create_sandbox(name=f"lca-deepagents-homework-{uuid4().hex[:
 print(f"Sandbox: {ls_sandbox.name}  (id: {ls_sandbox.id})")
 backend = LangSmithSandbox(sandbox=ls_sandbox)
 
+with open(Path(__file__).parent / "nfl" / "nfl_team_passing_yards_2016_2025.csv", "rb") as f:
+    upload_results = backend.upload_files([("/data/nfl_team_passing_yards_2016_2025.csv", f.read())])
+    
 agent = create_deep_agent(
     model=model,
     backend=backend,
@@ -130,7 +149,7 @@ try:
     print(result["messages"][-1].content)
 
     chart_bytes = ls_sandbox.read(CHART_PATH)
-    out_path = Path(__file__).parent / "homework_chart.png"
+    out_path = Path(__file__).parent / "nfl" / "bears_vs_league_passing_yards_2016_2025_local.png"
     out_path.write_bytes(chart_bytes)
     print(f"Chart saved to {out_path}")
 finally:
