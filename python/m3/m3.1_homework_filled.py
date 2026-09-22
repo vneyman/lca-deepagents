@@ -48,7 +48,12 @@ async def turn(message: str) -> str:
         {"messages": [HumanMessage(content=message)]},
         config=THREAD,
     )
-    return result["messages"][-1].content
+    content = result["messages"][-1].content  # type: ignore
+    
+    if (isinstance(content, list) and content and isinstance(content[0], dict) and "text" in content[0]):
+        return content[0].get("text", content)  # type: ignore
+    
+    return content  # type: ignore
 
 
 async def show_state(seen_cutoffs: set) -> bool:

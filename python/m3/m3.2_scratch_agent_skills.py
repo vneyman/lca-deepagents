@@ -17,4 +17,10 @@ agent = create_deep_agent(
 )
 
 result = agent.invoke({"messages": [{"role": "user", "content": "Qualify this lead: Acme Corp, 200-person logistics company. I spoke with Sarah Chen, VP of Sales: she's the decision maker. They have $45k budgeted for CRM this year. Main pain: deals are slipping through the cracks due to poor pipeline visibility. They want a solution live by end of Q3."}]})
-print(result["messages"][-1].content)
+content = result["messages"][-1].content[1]
+
+if (content and isinstance(content, dict) and "text" in content):
+    print("content is a list of dicts with 'text' key, extracting text...")
+    content = content.get("text", content)
+
+print(content)
