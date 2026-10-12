@@ -24,6 +24,7 @@ from models import model, strong_model
 
 # The distributor's top genres — known up front, no database needed.
 TOP_GENRES = ["Rock", "Latin", "Metal", "Alternative & Punk"]
+TOP_GENRES = ["Rock", "Latin"]
 
 
 # --- Tools -----------------------------------------------------------------

@@ -38,10 +38,10 @@ from langchain.chat_models import init_chat_model
 # Workshop default: Anthropic claude-haiku-4-5, fast and cost-effective.
 # Requires ANTHROPIC_API_KEY in .env
 # model = init_chat_model("openai:gpt-5.4-mini", timeout=60, max_retries=2, use_responses_api=True)
-model = init_chat_model("openai:gpt-5.6-luna", timeout=60, max_retries=2, use_responses_api=True)
+model = init_chat_model("openai:gpt-6-luna", timeout=120, max_retries=2, use_responses_api=True)
 
 #A more capable model for steps that need stronger reasoning
-strong_model = init_chat_model("openai:gpt-5.6-terra", timeout=120, max_retries=2)
+strong_model = init_chat_model("openai:gpt-6.1-sol", timeout=180, max_retries=2, use_responses_api=True)
 
 # ═══ Alternative Models (comment out default above, uncomment one below) ═════
 # model = init_chat_model("anthropic:claude-sonnet-4-6")

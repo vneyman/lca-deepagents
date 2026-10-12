@@ -42,6 +42,7 @@ def _content(fd) -> str:
 
 out_root = OUT_DIR.resolve()
 print("\nWriting agent files to disk:")
+
 for path in sorted(files):
     # Map the in-state layout onto OUT_DIR: /output/* lands at the root,
     # /research/<genre>/* keeps its folder structure.

@@ -6,8 +6,8 @@ This is a second, independent deployment, not a folder inside the shared
 course environment. It has its own pyproject.toml and its own model setup,
 so pandas (needed for the analysis tool below) is installed only here,
 never in the shared environment every other lab in the course depends on.
-Its langgraph.json also declares "dependencies": ["."] instead of the usual
-["../.."], which is what makes that isolation real.
+Its langgraph.json also includes the shared course package so it can use the
+same model configuration as the other deployments.
 
 RUN
   cd python/m5/async_lab/specialized_agent
@@ -20,10 +20,12 @@ other remote deployment.
 import time
 
 import pandas as pd
-from langchain_anthropic import ChatAnthropic
+from deepagents import create_deep_agent
+
+# from langchain_anthropic import ChatAnthropic
 from langchain_core.tools import tool
 
-from deepagents import create_deep_agent
+from models import model
 
 SALES = pd.DataFrame(
     {
@@ -52,7 +54,7 @@ def analyze_sales(group_by: str = "region") -> str:
     return "\n".join(lines)
 
 
-model = ChatAnthropic(model="claude-haiku-4-5")
+# model = ChatAnthropic(model="claude-haiku-4-5")
 
 # langgraph.json points at this module-level variable: "./agent.py:graph"
 graph = create_deep_agent(model=model, tools=[analyze_sales])

@@ -5,7 +5,7 @@ possible answer, so yours might be different. Explore!"""
 
 from pathlib import Path
 
-from deepagents import create_deep_agent
+from deepagents import FilesystemPermission, create_deep_agent
 from deepagents.backends import FilesystemBackend
 from langchain_quickjs import CodeInterpreterMiddleware
 
@@ -89,12 +89,18 @@ section_scanner = {
     "model": model,
 }
 
+corpus_permissions = [
+    FilesystemPermission(operations=["read"], paths=["/my_corpus.txt"], mode="allow"),
+    FilesystemPermission(operations=["read", "write"], paths=["/**"], mode="deny"),
+]
+
 agent = create_deep_agent(
     model=strong_model,
     middleware=[CodeInterpreterMiddleware()],
     system_prompt=MAIN_PROMPT,
     subagents=[section_scanner],
     backend=FilesystemBackend(root_dir=DATA_DIR, virtual_mode=True),
+    permissions=corpus_permissions,
 )
 
 result = agent.invoke(

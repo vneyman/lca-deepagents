@@ -23,6 +23,7 @@ WHAT YOU FILL IN
 """
 
 import asyncio
+from urllib import response
 
 from langgraph_sdk import get_client
 
@@ -30,15 +31,19 @@ API_URL = "http://127.0.0.1:2024"
 ASSISTANT_ID = "agent"  # matches the "agent" key in langgraph.json's "graphs"
 
 # TODO 3: replace this with a question that should trigger your tool.
-QUESTION = "TODO 3: replace this with a question for your deployed agent."
+QUESTION = """What is the weather forecast in Nashville for the evening? 
+Include a joke before answering the question."""
 
 
 def _last_ai_text(messages: list) -> str:
     for msg in reversed(messages):
         if msg.get("type") == "ai":
-            return msg.get("content", "")
+            text = next(
+                (item["text"] for item in msg.get("content", "") if item.get("type") == "text"),
+                None
+                )
+            return text
     return ""
-
 
 async def main() -> None:
     client = get_client(url=API_URL)

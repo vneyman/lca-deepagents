@@ -1,44 +1,37 @@
-# python/m4/m4.2_homework.py
-"""M4.2 Homework: Give Each Subagent Its Own Scoped Scratch Folder.
+import os
+from datetime import date
 
-THE IDEA
-The lab's genre-researcher subagents each wrote raw search notes to their own
-assigned /research/<genre>/ folder, kept out of the editor's context by
-FilesystemPermission scoping: researchers could write under /research/**, the
-editor could not. 
-
-This homework asks you to build a small team of 2 subagent types for 
-a domain YOU pick (e.g., trip planning, home renovation), each with 
-its own private, permission-scoped folder under /scratch/<name>/ to
-stash raw notes in before answering. The harness below wires up the scratch
-folder, the permissions, and the write-before-answering instruction for you;
-you just decide who your two subagents are.
-
-WHAT YOU FILL IN
-  TODO 1: for each of the two entries in SUBAGENT_SPECS, fill in "name",
-    "description" (when the main agent should call it), and "role_prompt"
-    (who this subagent is and what its job is). Everything else -- the
-    scratch folder, the permissions, the instruction to save raw notes
-    before answering -- is handled for you.
-  TODO 2: write the main agent's system prompt, telling it which subagent
-    to call for which part of the job, and a user request that should
-    trigger delegation to BOTH subagents.
-
-RUN
-  cd python
-  uv run ./m4/m4.2_homework.py
-"""
-
+import markdown as md
+import nh3
 from deepagents import FilesystemPermission, create_deep_agent
+from langchain_core.tools import tool
+from tavily import TavilyClient
 
 from models import model, strong_model
 
-SCRATCH_ROOT = "/scratch"
+# --- Tools -----------------------------------------------------------------
+# internet_search belongs ONLY to the subagent (see `tools=` below).
+tavily_api_key = os.environ.get("TAVILY_API_KEY")
+if not tavily_api_key:
+    raise RuntimeError(
+        "TAVILY_API_KEY is required for the Module 4.2 newsletter lab. "
+        "Set it in your environment before running m4.2_run_newsletter.py."
+    )
 
+_tavily = TavilyClient(api_key=tavily_api_key)
+
+
+@tool
+def internet_search(query: str, max_results: int = 8) -> dict:
+    """Search the web."""
+    return _tavily.search(query, max_results=max_results, topic="general")
+
+SCRATCH_ROOT = "/scratch"
+RESEARCH_ROOT = "/research"
+DATE_RESEARCH = date.today().strftime("%B %d, %Y")  # e.g., "June 12, 2024"
 
 def scratch_path(subagent_name: str) -> str:
     return f"{SCRATCH_ROOT}/{subagent_name}/notes.md"
-
 
 def scratch_permissions(subagent_name: str) -> list:
     """Scope a subagent to write only under its own scratch folder -- the same
@@ -67,6 +60,8 @@ def build_subagents(specs: list[dict]) -> list[dict]:
                 "name": name,
                 "description": spec["description"],
                 "system_prompt": spec["role_prompt"] + "\n\n" + scratch_instruction(name),
+                "tools": [internet_search],
+                "model": model,
                 "permissions": scratch_permissions(name),
             }
         )
@@ -84,14 +79,14 @@ def build_subagents(specs: list[dict]) -> list[dict]:
 
 SUBAGENT_SPECS = [
     {
-        "name": "TODO-1-name-1",
-        "description": "TODO 1: when should the main agent delegate to this one?",
-        "role_prompt": "TODO 1: who is this subagent, and what is its job?",
+        "name": "today-in-history",
+        "description": "research and provide information about historical events that occurred on the current date.",
+        "role_prompt": "you are a world history expert. ",
     },
     {
-        "name": "TODO-1-name-2",
-        "description": "TODO 1: when should the main agent delegate to this one?",
-        "role_prompt": "TODO 1: who is this subagent, and what is its job?",
+        "name": "history-effects",
+        "description": "analyze the impact of historical events on modern society and culture.",
+        "role_prompt": "you are a historian specializing in the study of historical events and their consequences. ",
     },
 ]
 
@@ -106,8 +101,15 @@ SUBAGENT_SPECS = [
 # BOTH of your subagents.
 # ════════════════════════════════════════════════════════════════════════
 
-MAIN_PROMPT = """TODO 2: replace this with your own main agent system prompt."""
-USER_REQUEST = "TODO 2: replace this with a request that should trigger delegation to both subagents."
+MAIN_PROMPT = """You have two subagents: "today-in-history" and "history-effects". 
+a. "today-in-history" for any tasks related to researching historical events that occurred on the current date. 
+b. "history-effects" for any tasks related to analyzing the impact of historical events on modern society and culture. 
+
+Use the information provided by the subagents to create a comprehensive report that includes historical context, cultural significance, and modern implications. Be assertive with your recommendations and ensure the final report is informative and tailored to the user's preferences. Save all raw notes and research in the subagents' scratch folders before providing the final answer. Save the final report in /research/final_plan/history_<DATE>.md. Where DATE is in ISO 8601 format (YYYY-MM-DD)."""
+
+USER_REQUEST = f"""
+    Provide a comprehensive report on the top 3 historical events that occurred on {DATE_RESEARCH}and their impact on modern society and culture. 
+"""
 
 for _spec in SUBAGENT_SPECS:
     if _spec["name"].startswith("TODO-1"):
@@ -120,11 +122,13 @@ _team = build_subagents(SUBAGENT_SPECS)
 # The main agent must never write into any subagent's scratch folder either.
 MAIN_PERMISSIONS = [
     FilesystemPermission(operations=["write"], paths=[f"{SCRATCH_ROOT}/**"], mode="deny"),
+    FilesystemPermission(operations=["write", "read"], paths=[f"{RESEARCH_ROOT}/**"], mode="allow"),
+    FilesystemPermission(operations=["write"], paths=["/**"], mode="deny"),
 ]
 
 agent = create_deep_agent(
     model=strong_model,
-    name="Homework_Team_Agent",
+    name="History_Agent",
     system_prompt=MAIN_PROMPT,
     subagents=_team,
     permissions=MAIN_PERMISSIONS,
@@ -137,6 +141,7 @@ result = agent.invoke(
 print(result["messages"][-1].content)
 
 files = result.get("files", {})
+
 print("\n--- Scratch folder isolation check ---")
 for spec in SUBAGENT_SPECS:
     path = scratch_path(spec["name"])

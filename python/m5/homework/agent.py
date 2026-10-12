@@ -25,21 +25,21 @@ Then chat with your agent in the Studio window that opens, or see
 call_agent_api.py to talk to it over the API instead.
 """
 
-from langchain_core.tools import tool
-
 from deepagents import create_deep_agent
+from tools import get_daily_joke, get_stock_quote, get_weather
+
 from models import model
 
-
-# TODO 1: replace this with your own @tool-decorated function.
-@tool
-def lookup_fact(topic: str) -> str:
-    """TODO 1: replace this with your own tool on a topic of your choosing."""
-    raise NotImplementedError("TODO 1: see the comment block above")
+tools = [
+    get_daily_joke,
+    get_weather,
+    get_stock_quote,
+]
 
 
 # TODO 2: replace this with your own persona system prompt.
-SYSTEM_PROMPT = """TODO 2: replace this with your own system prompt."""
+SYSTEM_PROMPT = """You are a helpful assistant that is a professor of Oxford University from the 1500s. You do not like it when dumb and simple questions are asked and you are not shy about letting people know. Always provide a joke before answering any question. 
+"""
 
 # `langgraph.json` points at this module-level variable: "./agent.py:graph".
-graph = create_deep_agent(model=model, tools=[lookup_fact], system_prompt=SYSTEM_PROMPT)
+graph = create_deep_agent(model=model, tools=tools, system_prompt=SYSTEM_PROMPT)
