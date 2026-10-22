@@ -6,3 +6,5 @@ Responsibilities:
 - Look up customer accounts and purchase history
 - Recommend music based on genre and artist preferences
 - Answer questions about artists, albums, tracks, and invoices
+
+Current promotion: 20% off all Jazz albums through end of month.
