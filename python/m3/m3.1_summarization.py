@@ -14,8 +14,11 @@ Run:
 """
 
 import asyncio
+from pathlib import Path
 
 from deepagents import create_deep_agent
+from deepagents.backends import StateBackend, FilesystemBackend
+from deepagents.middleware import SummarizationMiddleware
 from langchain_core.messages import HumanMessage
 from langgraph.checkpoint.memory import MemorySaver
 
@@ -23,23 +26,40 @@ from models import model
 
 # Shrink the reported context window so summarization triggers at ~595 tokens
 # (85% of 700) instead of the real threshold. Must use model object, not string.
-model.profile = {**model.profile, "max_input_tokens": 700}
+# model.profile = {**model.profile, "max_input_tokens": 700}
+
+print("*** MODEL INFO ***")
+print(model)
+print(model.profile)
+
+# Directory where Deep Agents stores files
+DATA_DIR = Path(__file__).parent / "data"
+DATA_DIR.mkdir(exist_ok=True)
+backend = FilesystemBackend(root_dir=DATA_DIR, virtual_mode=True)
 
 agent = create_deep_agent(
     model=model,
     checkpointer=MemorySaver(),
     system_prompt="You are a helpful assistant. Keep every response to one sentence.",
+    middleware=[
+        SummarizationMiddleware(
+            model=model, 
+            trigger=("tokens", 20), 
+            keep=("messages", 1),
+            backend=backend
+            )
+        ]
 )
 
-THREAD = {"configurable": {"thread_id": "demo"}}
 
+THREAD = {"configurable": {"thread_id": "demo"}}
 
 async def turn(message: str) -> str:
     result = await agent.ainvoke(
         {"messages": [HumanMessage(content=message)]},
         config=THREAD,
     )
-    return result["messages"][-1].content[0]["text"]  # type: ignore
+    return result["messages"][-1].content[-1]["text"]  # type: ignore
 
 
 async def show_state() -> None:
@@ -50,6 +70,8 @@ async def show_state() -> None:
     if event:
         cutoff = event.get("cutoff_index", "?")
         print(f"  model saw : summary + messages[{cutoff}:]  [SUMMARIZED]")
+        print(f"SUMMARY FILE: {event['file_path']}")
+        print(f"SUMMARY: {event['summary_message'].content}")
 
 
 async def main() -> None:
@@ -58,6 +80,7 @@ async def main() -> None:
         "What is 2 + 2?",
         "I have been building a distributed cache for three months.",
         "What is the capital of France?",
+        "Describe in 3-5 sentense the cause of antisemitism",
         "What do you remember about me?",
     ]
 

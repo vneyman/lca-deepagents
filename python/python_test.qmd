@@ -1,0 +1,12 @@
+---
+title: "Python Test"
+format: html
+---
+
+
+```{python}
+#| label: load-packages
+
+from pathlib import Path
+
+```
