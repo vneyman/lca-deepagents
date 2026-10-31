@@ -4,11 +4,12 @@ build-backend = "setuptools.build_meta"
 
 [tool.setuptools]
 py-modules = ["models", "env_utils"]
+packages = ["tools"]
 
 [project]
 name = "lca-deepagents-python"
 version = "0.1.0"
-requires-python = ">=3.11,<3.15"
+requires-python = ">=3.11,<3.14"
 
 dependencies = [
     "deepagents",
@@ -31,6 +32,11 @@ dependencies = [
     "matplotlib>=3.11.0",
     "questionary>=2.0.0",
     "yfinance>=1.7.0",
+    "lxml",
+    "requests",
+    "pydantic>=2.10.0",
+    "html5lib",
+    "pandas>=3.0,<3.1",
 ]
 
 # Provider extras referenced by the install table in models.py

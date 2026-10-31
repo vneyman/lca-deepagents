@@ -56,6 +56,9 @@ langsmith_traces/
 
 # IDE
 .vscode/
+!/python/.vscode/
+/python/.vscode/*
+!/python/.vscode/settings.json
 .idea/
 .cursor/
 pyrightconfig.json

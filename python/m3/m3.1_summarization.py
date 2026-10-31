@@ -22,7 +22,7 @@ from deepagents.middleware import SummarizationMiddleware
 from langchain_core.messages import HumanMessage
 from langgraph.checkpoint.memory import MemorySaver
 
-from models import model
+from models import model, strong_model
 
 # Shrink the reported context window so summarization triggers at ~595 tokens
 # (85% of 700) instead of the real threshold. Must use model object, not string.
