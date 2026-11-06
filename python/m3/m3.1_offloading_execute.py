@@ -3,7 +3,7 @@ import sys
 from pathlib import Path
 
 from deepagents import create_deep_agent
-from deepagents.backends import LocalShellBackend
+from deepagents.backends import CompositeBackend, FilesystemBackend, LocalShellBackend
 from deepagents.middleware import FilesystemMiddleware
 from langchain_core.messages import HumanMessage
 from langgraph.checkpoint.memory import MemorySaver
@@ -20,7 +20,10 @@ OFFLOAD_THRESHOLD = 20_000  # Offload after this many tokens
 # ** TOOLS **
 tools = [get_sp500_trading_data, internet_search]
 
-backend = LocalShellBackend(root_dir=DATA_DIR, virtual_mode=True)
+backend = CompositeBackend(
+    default=LocalShellBackend(root_dir=DATA_DIR, virtual_mode=True),
+    routes={"/skills/": FilesystemBackend(root_dir=DATA_DIR.parent / "skills", virtual_mode=True)},
+)
 
 middleware = [
     FilesystemMiddleware(
@@ -32,6 +35,7 @@ middleware = [
 agent = create_deep_agent(
     model=model,
     tools=tools,
+    skills=["/skills/"],
     checkpointer=MemorySaver(),
     system_prompt=(
         "You are a stock analyst of equities with access to historical data via tools. "

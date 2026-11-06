@@ -3,7 +3,8 @@ requires = ["setuptools>=61"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools]
-py-modules = ["models", "env_utils"]
+py-modules = ["models"]
+# py-modules = ["models", "env_utils"]
 packages = ["tools"]
 
 [project]

@@ -17,7 +17,7 @@ import asyncio
 from pathlib import Path
 
 from deepagents import create_deep_agent
-from deepagents.backends import StateBackend, FilesystemBackend
+from deepagents.backends import FilesystemBackend, StateBackend
 from deepagents.middleware import SummarizationMiddleware
 from langchain_core.messages import HumanMessage
 from langgraph.checkpoint.memory import MemorySaver

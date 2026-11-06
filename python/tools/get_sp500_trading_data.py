@@ -32,7 +32,11 @@ def get_sp500_trading_data(
         date_end: Inclusive end date in YYYY-MM-DD format. If the date is
             not a trading day, use the most recent preceding trading day. Default is today.
         trading_days: Number of trading sessions to retrieve per stock,
-            counting backward from date_end. Defaults to 10.
+            counting backward from date_end. 
+            Trading day includes the current day, if not an exchange holiday. 
+            For example, 5 trading days from Friday, October 30, 2026 would be: 
+            October 30, October 29, October 28, October 27, and October 26.
+            Defaults to 10.
 
     Returns:
         Complete CSV text with one row per stock per trading session.
